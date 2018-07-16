@@ -33,10 +33,12 @@ const aggregate = (filePath) => {
     countryfiledataobject.push(obj);
   }
   const cc = fs.readFileSync('continent.txt', 'utf8');
-  const ccrow = cc.split('\r\n');
+  const ccrow = cc.split('\n');
   const countryContinentMap = new Map();
+  let ccsplit;
   for (let i = 0; i < ccrow.length; i += 1) {
-    const ccsplit = ccrow[i].split(',');
+    ccsplit = ccrow[i].split(',');
+    ccsplit[1] = ccsplit[1].replace(/\r/g, '');
     countryContinentMap.set(ccsplit[0], ccsplit[1]);
   }
   /*  countryContinentMap - (country - continent map from external data ,
@@ -54,7 +56,8 @@ const aggregate = (filePath) => {
   continent.forEach((cont) => {
     continentData[cont] = {
 
-      GDP_2012: 0, POPULATION_2012: 0,
+      GDP_2012: 0,
+      POPULATION_2012: 0,
 
     };
   });
@@ -66,5 +69,5 @@ const aggregate = (filePath) => {
   fs.writeFileSync(outputFile, JSON.stringify(continentData));
 };
 
-
+aggregate('./data/datafile.csv');
 module.exports = aggregate;
