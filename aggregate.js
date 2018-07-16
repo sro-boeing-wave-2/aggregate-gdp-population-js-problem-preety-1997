@@ -34,8 +34,6 @@ const aggregate = filePath => new Promise((resolve, reject) => {
     const indexOfPopulation = headerText.indexOf('Population (Millions) - 2012');
     const aggregateresult = {};
 
-    // console.log(mapperdata[cells[IndexOfCountryName]])
-    // console.log(data[1]);
     data.forEach((element) => {
       const row = element.split(',');
       if (mapper[row[indexOfCountry]] !== undefined) {
@@ -62,5 +60,4 @@ const aggregate = filePath => new Promise((resolve, reject) => {
     reject(error);
   });
 });
-aggregate('./data/datafile.csv');
 module.exports = aggregate;
