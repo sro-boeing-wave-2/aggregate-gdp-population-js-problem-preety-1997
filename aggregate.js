@@ -11,8 +11,8 @@ const readDataFile = function datafile(filePath) {
 
 function writeFile(output, data) {
   return new Promise((resolve, reject) => {
-    fs.writeFile(output, data, (error) => {
-      if (error === null) {
+    fs.writeFile(output, data, (err) => {
+      if (err === null) {
         resolve(data);
       } else {
         reject(error);
@@ -58,16 +58,15 @@ const aggregate = filePath => new Promise((resolve, reject) => {
       countryfiledataobject - (object created from data file )) */
     for (let i = 0; i < countryfiledataobject.length; i += 1) {
       if (countryfiledataobject[i]['Country Name'] !== 'European Union') {
-        countryfiledataobject[i].continent = countryContinentMap.get(countryfiledataobject[i]['Country Name']);
         conticountry.push(countryContinentMap.get(countryfiledataobject[i]['Country Name']));
       }
     }
 
     const continent = new Set(conticountry);
-    const continentData = {};
+    const resultData = {};
 
     continent.forEach((cont) => {
-      continentData[cont] = {
+      resultData[cont] = {
 
         GDP_2012: 0,
         POPULATION_2012: 0,
@@ -76,11 +75,11 @@ const aggregate = filePath => new Promise((resolve, reject) => {
       };
     });
     for (let i = 0; i < conticountry.length; i += 1) {
-      continentData[conticountry[i]].GDP_2012 += parseFloat(countryfiledataobject[i]['GDP Billions (US Dollar) - 2012']);
+      resultData[conticountry[i]].GDP_2012 += parseFloat(countryfiledataobject[i]['GDP Billions (US Dollar) - 2012']);
 
-      continentData[conticountry[i]].POPULATION_2012 += parseFloat(countryfiledataobject[i]['Population (Millions) - 2012']);
+      resultData[conticountry[i]].POPULATION_2012 += parseFloat(countryfiledataobject[i]['Population (Millions) - 2012']);
     }
-    writeFile(output, JSON.stringify(continentData)).then(() => {
+    writeFile(output, JSON.stringify(resultData)).then(() => {
       resolve();
     }).catch((error) => {
       reject(error);
