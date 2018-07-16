@@ -12,7 +12,7 @@ const fs = require('fs');
 const aggregate = (filePath) => {
   const csvdata = fs.readFileSync(filePath, 'utf8');
   const stringdata = csvdata.toString();
-  const arrayOne = stringdata.split('\r\n');
+  const arrayOne = stringdata.split('\n');
   const header = arrayOne[0].split(',');
   const noOfRow = arrayOne.length;
   const noOfCol = header.length;
@@ -32,6 +32,7 @@ const aggregate = (filePath) => {
     }
     countryfiledataobject.push(obj);
   }
+  console.log(countryfiledataobject);
   const cc = fs.readFileSync('continent.txt', 'utf8');
   const ccrow = cc.split('\n');
   const countryContinentMap = new Map();
@@ -69,5 +70,4 @@ const aggregate = (filePath) => {
   fs.writeFileSync(outputFile, JSON.stringify(continentData));
 };
 
-aggregate('./data/datafile.csv');
 module.exports = aggregate;
