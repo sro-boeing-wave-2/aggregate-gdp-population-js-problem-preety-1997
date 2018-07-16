@@ -41,8 +41,10 @@ const aggregate = filePath => new Promise((resolve, reject) => {
       if (mapper[row[indexOfCountry]] !== undefined) {
         if (aggregateresult[mapper[row[indexOfCountry]]] === undefined) {
           aggregateresult[mapper[row[indexOfCountry]]] = {};
-          aggregateresult[mapper[row[indexOfCountry]]].GDP_2012 = parseFloat(row[indexOfgdp]);
-          aggregateresult[mapper[row[indexOfCountry]]].POPULATION_2012 = parseFloat(row[indexOfPopulation]);
+          aggregateresult[mapper[row[indexOfCountry]]]
+            .GDP_2012 = parseFloat(row[indexOfgdp]);
+          aggregateresult[mapper[row[indexOfCountry]]]
+            .POPULATION_2012 = parseFloat(row[indexOfPopulation]);
         } else {
           aggregateresult[mapper[row[indexOfCountry]]].GDP_2012
             += parseFloat(row[indexOfgdp]);
