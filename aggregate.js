@@ -9,14 +9,6 @@ const readDataFile = function datafile(filePath) {
   });
 };
 
-const readCountryFile = function f2(continent) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(continent, 'utf8', (err, data) => {
-      if (err) reject(err);
-      else resolve(data);
-    });
-  });
-};
 function writeFile(output, data) {
   return new Promise((resolve, reject) => {
     fs.writeFile(output, data, (error) => {
@@ -32,7 +24,7 @@ function writeFile(output, data) {
 const continentfile = 'continent.txt';
 const output = './output/output.json';
 const aggregate = filePath => new Promise((resolve, reject) => {
-  Promise.all([readDataFile(filePath), readCountryFile(continentfile)]).then((values) => {
+  Promise.all([readDataFile(filePath), readDataFile(continentfile)]).then((values) => {
     const csvdata = values[0]; // csv file data
     const cc = values[1];// continent country data
     const stringdata = csvdata.toString();
@@ -79,6 +71,7 @@ const aggregate = filePath => new Promise((resolve, reject) => {
 
         GDP_2012: 0,
         POPULATION_2012: 0,
+
 
       };
     });
