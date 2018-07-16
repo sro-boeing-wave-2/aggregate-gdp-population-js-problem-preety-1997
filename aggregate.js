@@ -15,9 +15,8 @@ const readCountryFile = function f2(continent) {
       if (err) reject(err);
       else resolve(data);
     });
-
   });
-}
+};
 function writeFile(output, data) {
   return new Promise((resolve, reject) => {
     fs.writeFile(output, data, (error) => {
@@ -30,10 +29,10 @@ function writeFile(output, data) {
   });
 }
 
-const continent = 'continent.txt';
+const continentfile = 'continent.txt';
 const output = './output/output.json';
 const aggregate = filePath => new Promise((resolve, reject) => {
-  Promise.all([readDataFile(filePath), readCountryFile(continent)]).then((values) => {
+  Promise.all([readDataFile(filePath), readCountryFile(continentfile)]).then((values) => {
     const csvdata = values[0]; // csv file data
     const cc = values[1];// continent country data
     const stringdata = csvdata.toString();
@@ -43,8 +42,6 @@ const aggregate = filePath => new Promise((resolve, reject) => {
     const noOfCol = header.length;
     const countryfiledataobject = [];
     const conticountry = [];
-    const outputFile = './output/output.json';
-
 
     for (let i = 1; i < noOfRow - 1; i += 1) {
       const obj = {};
